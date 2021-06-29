@@ -28,8 +28,6 @@ public class StatController {
 
     @PostMapping
     public void saveStat(@RequestBody Stat stat) {
-        stat.setId(UUID.randomUUID().toString());
-        stat.setTimestamp(Instant.now().toEpochMilli());
         service.save(stat);
     }
 
