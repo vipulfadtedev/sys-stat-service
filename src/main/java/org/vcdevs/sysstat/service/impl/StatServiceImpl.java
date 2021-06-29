@@ -6,7 +6,9 @@ import org.vcdevs.sysstat.entity.Stat;
 import org.vcdevs.sysstat.repository.StatRepository;
 import org.vcdevs.sysstat.service.StatService;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class StatServiceImpl implements StatService {
@@ -26,6 +28,7 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public void save(Stat stat) {
+        System.out.println("===>"+stat);
         repository.save(stat);
     }
 

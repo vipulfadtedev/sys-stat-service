@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.vcdevs.sysstat.entity.Stat;
 import org.vcdevs.sysstat.service.StatService;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("stats")
@@ -15,22 +17,23 @@ public class StatController {
     private StatService service;
 
     @GetMapping
-    @RequestMapping("/all")
     public List<Stat> showStats() {
         return service.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public Stat showStat(@RequestParam("id") long id) {
         return service.findById(id);
     }
 
     @PostMapping
     public void saveStat(@RequestBody Stat stat) {
+        stat.setId(UUID.randomUUID().toString());
+        stat.setTimestamp(Instant.now().toEpochMilli());
         service.save(stat);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteStat(@RequestParam("id") long id) {
         service.deleteById(id);
     }
