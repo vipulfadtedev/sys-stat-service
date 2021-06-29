@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.vcdevs.sysstat.entity.Stat;
 import org.vcdevs.sysstat.service.StatService;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
+@CrossOrigin
 @RestController
 @RequestMapping("stats")
 public class StatController {

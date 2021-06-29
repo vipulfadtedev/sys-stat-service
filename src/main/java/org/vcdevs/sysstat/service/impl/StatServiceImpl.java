@@ -28,13 +28,13 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public void save(Stat stat) {
+        System.out.println("request before ===>" + stat);
         stat.setId(UUID.randomUUID().toString());
-
         if (stat.getTimestamp() <= 0) {
             stat.setTimestamp(Instant.now().toEpochMilli());
         }
 
-        System.out.println("request ===>" + stat);
+        System.out.println("request after ===>" + stat);
         repository.save(stat);
     }
 
