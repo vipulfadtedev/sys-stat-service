@@ -20,6 +20,11 @@ public class StatController {
         return service.findAll();
     }
 
+    @GetMapping("/in-last-hour")
+    public List<Stat> showStatsInLastHour() {
+        return service.findAllInLastHour();
+    }
+
     @GetMapping("/{id}")
     public Stat showStat(@RequestParam("id") long id) {
         return service.findById(id);
@@ -34,6 +39,5 @@ public class StatController {
     public void deleteStat(@RequestParam("id") long id) {
         service.deleteById(id);
     }
-
 
 }

@@ -7,6 +7,7 @@ import org.vcdevs.sysstat.repository.StatRepository;
 import org.vcdevs.sysstat.service.StatService;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,19 +23,21 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
+    public List<Stat> findAllInLastHour() {
+        return repository.findAllInLastHour(Instant.now().minus(1, ChronoUnit.HOURS).toEpochMilli());
+    }
+
+    @Override
     public Stat findById(long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
     public void save(Stat stat) {
-        System.out.println("request before ===>" + stat);
         stat.setId(UUID.randomUUID().toString());
         if (stat.getTimestamp() <= 0) {
             stat.setTimestamp(Instant.now().toEpochMilli());
         }
-
-        System.out.println("request after ===>" + stat);
         repository.save(stat);
     }
 

@@ -7,6 +7,8 @@ import java.util.List;
 public interface StatService {
     List<Stat> findAll();
 
+    List<Stat> findAllInLastHour();
+
     Stat findById(long id);
 
     void save(Stat stat);
