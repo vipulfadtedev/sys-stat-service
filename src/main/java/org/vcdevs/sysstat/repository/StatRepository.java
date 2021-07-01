@@ -12,7 +12,7 @@ import java.util.List;
 public interface StatRepository extends CrudRepository<Stat, Long>{
 
     @Query(
-            value = "SELECT * FROM vcd_open_projects.stat WHERE timestamp > ?1",
+            value = "SELECT * FROM vcd_open_projects.stat WHERE timestamp > ?1 ORDER BY timestamp ASC ",
             nativeQuery = true)
     List<Stat> findAllInLastHour(long timestamp);
 
