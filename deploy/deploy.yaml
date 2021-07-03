@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sys-stat-service-dep
+  namespace: sys-stat
+  labels:
+    app: sys-stat-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sys-stat-service
+  template:
+    metadata:
+      labels:
+        app: sys-stat-service
+    spec:
+      containers:
+      - name: sys-stat-service
+        image: "#image#"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

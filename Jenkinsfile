@@ -8,23 +8,22 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t vipulfadtedev/sys-stat-service:latest .'
+                sh 'docker build -t vipulfadtedev/sys-stat-service:$BUILD_NUMBER .'
             }
         }
-        stage('Tag Docker Image') {
+        stage('Push Docker Image') {
             steps {
-                sh 'docker ps'
+                sh 'docker push vipulfadtedev/sys-stat-service:$BUILD_NUMBER'
+                sh 'docker tag vipulfadtedev/sys-stat-service:$BUILD_NUMBER vipulfadtedev/sys-stat-service:latest'
+                sh 'docker push vipulfadtedev/sys-stat-service:latest'
             }
         }
-        stage('Stop running container') {
+        stage('Deploy') {
             steps {
-                sh 'docker stop `docker ps -aqf "name=sys-stat-service"`'
-                sh 'docker rm `docker ps -aqf "name=sys-stat-service"`'
-            }
-        }
-        stage('Start new container') {
-            steps {
-                sh 'docker run --name sys-stat-service --restart unless-stopped -dp 5000:8080 vipulfadtedev/sys-stat-service:latest'
+                sh 'sed -i "s|#image#|vipulfadtedev/sys-stat-service:""$BUILD_NUMBER""|" deploy/deploy.yaml'
+                sh '''kubectl apply -f deploy/namespace.yaml
+                      kubectl apply -f deploy/deploy.yaml
+                      kubectl apply -f deploy/service.yaml'''
             }
         }
     }
