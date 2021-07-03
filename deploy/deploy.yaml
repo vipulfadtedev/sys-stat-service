@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sys-stat-service
-        image: "vipulfadtedev/sys-stat-service:14"
+        image: "#image#"
         imagePullPolicy: Always
         resources:
           requests:
@@ -31,12 +31,12 @@ spec:
         readinessProbe:
           httpGet:
             path: /health
-            port: 9090
+            port: 8080
           initialDelaySeconds: 5
           periodSeconds: 15
         livenessProbe:
           httpGet:
             path: /health
-            port: 9090
+            port: 8080
           initialDelaySeconds: 5
           periodSeconds: 15
