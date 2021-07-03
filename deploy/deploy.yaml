@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sys-stat-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: sys-stat-service
@@ -17,14 +17,26 @@ spec:
     spec:
       containers:
       - name: sys-stat-service
-        image: "#image#"
+        image: "vipulfadtedev/sys-stat-service:14"
         imagePullPolicy: Always
         resources:
           requests:
             memory: "128Mi"
             cpu: "128m"
           limits:
-            memory: "250Mi"
-            cpu: "250m"
+            memory: "256Mi"
+            cpu: "256m"
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 15
