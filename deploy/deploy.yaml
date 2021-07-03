@@ -19,5 +19,12 @@ spec:
       - name: sys-stat-service
         image: "#image#"
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "128m"
+          limits:
+            memory: "250Mi"
+            cpu: "250m"
         ports:
         - containerPort: 8080
