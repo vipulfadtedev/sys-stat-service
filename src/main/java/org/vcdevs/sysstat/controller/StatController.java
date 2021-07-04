@@ -1,9 +1,15 @@
 package org.vcdevs.sysstat.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.vcdevs.sysstat.entity.Stat;
 import org.vcdevs.sysstat.service.StatService;
+
 
 import java.util.List;
 
@@ -12,46 +18,48 @@ import java.util.List;
 @RequestMapping("stats")
 public class StatController {
 
+    private static final Logger LOGGER=LoggerFactory.getLogger(StatController.class);
+
     @Autowired
     private StatService service;
 
     @GetMapping
     public List<Stat> showStats() {
-        System.out.println(":::sys-stat-service:::showStats:::requested:::>");
+        LOGGER.info("::: sys-stat-service ::: showStats ::: requested ->");
         List<Stat> response = service.findAll();
-        System.out.println(":::sys-stat-service:::showStats:::response:::> OK");
+        LOGGER.info("::: sys-stat-service ::: showStats ::: response -> OK");
         return response;
     }
 
     @GetMapping("/in-last-hour")
     public List<Stat> showStatsInLastHour() {
-        System.out.println(":::sys-stat-service:::showStatsInLastHour:::requested:::>");
+        LOGGER.info("::: sys-stat-service ::: showStatsInLastHour ::: requested ->");
         List<Stat> response = service.findAllInLastHour();
-        System.out.println(":::sys-stat-service:::showStatsInLastHour:::response:::> OK");
+        LOGGER.info("::: sys-stat-service ::: showStatsInLastHour ::: response -> OK");
         return response;
 
     }
 
     @GetMapping("/{id}")
     public Stat showStat(@RequestParam("id") long id) {
-        System.out.println("::: sys-stat-service ::: showStat ::: requested ::: id :::> " + id);
+        LOGGER.info("::: sys-stat-service ::: showStat ::: requested ::: id -> ", id);
         Stat response = service.findById(id);
-        System.out.println("::: sys-stat-service ::: showStat ::: response :::> " + response);
+        LOGGER.info("::: sys-stat-service ::: showStat ::: response -> " + response);
         return response;
     }
 
     @PostMapping
     public void saveStat(@RequestBody Stat stat) {
-        System.out.println("::: sys-stat-service ::: saveStat ::: requested ::: Stat :::> " + stat);
+        LOGGER.info("::: sys-stat-service ::: saveStat ::: requested ::: Stat -> ", stat);
         service.save(stat);
-        System.out.println("::: sys-stat-service ::: saveStat ::: response ::::> Created");
+        LOGGER.info("::: sys-stat-service ::: saveStat ::: response -> Created");
     }
 
     @DeleteMapping("/{id}")
     public void deleteStat(@RequestParam("id") long id) {
-        System.out.println("::: sys-stat-service ::: deleteStat ::: requested ::: id :::> " + id);
+        LOGGER.info("::: sys-stat-service ::: deleteStat ::: requested ::: id -> ", id);
         service.deleteById(id);
-        System.out.println("::: sys-stat-service ::: deleteStat ::: response ::::> Deleted");
+        LOGGER.info("::: sys-stat-service ::: deleteStat ::: response -> Deleted");
     }
 
 }

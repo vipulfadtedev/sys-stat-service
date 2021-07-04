@@ -22,6 +22,11 @@ spec:
       containers:
       - name: sys-stat-service
         image: "#image#"
+        env:
+          - name: POD
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
         imagePullPolicy: Always
         resources:
           requests:
