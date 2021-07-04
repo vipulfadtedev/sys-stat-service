@@ -14,10 +14,10 @@ spec:
     metadata:
       labels:
         app: sys-stat-service
-    strategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 100%
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
     spec:
       containers:
       - name: sys-stat-service
