@@ -17,27 +17,41 @@ public class StatController {
 
     @GetMapping
     public List<Stat> showStats() {
-        return service.findAll();
+        System.out.println(":::sys-stat-service:::showStats:::requested:::>");
+        List<Stat> response = service.findAll();
+        System.out.println(":::sys-stat-service:::showStats:::response:::> OK");
+        return response;
     }
 
     @GetMapping("/in-last-hour")
     public List<Stat> showStatsInLastHour() {
-        return service.findAllInLastHour();
+        System.out.println(":::sys-stat-service:::showStatsInLastHour:::requested:::>");
+        List<Stat> response = service.findAllInLastHour();
+        System.out.println(":::sys-stat-service:::showStatsInLastHour:::response:::> OK");
+        return response;
+
     }
 
     @GetMapping("/{id}")
     public Stat showStat(@RequestParam("id") long id) {
-        return service.findById(id);
+        System.out.println("::: sys-stat-service ::: showStat ::: requested ::: id :::> " + id);
+        Stat response = service.findById(id);
+        System.out.println("::: sys-stat-service ::: showStat ::: response :::> " + response);
+        return response;
     }
 
     @PostMapping
     public void saveStat(@RequestBody Stat stat) {
+        System.out.println("::: sys-stat-service ::: saveStat ::: requested ::: Stat :::> " + stat);
         service.save(stat);
+        System.out.println("::: sys-stat-service ::: saveStat ::: response ::::> Created");
     }
 
     @DeleteMapping("/{id}")
     public void deleteStat(@RequestParam("id") long id) {
+        System.out.println("::: sys-stat-service ::: deleteStat ::: requested ::: id :::> " + id);
         service.deleteById(id);
+        System.out.println("::: sys-stat-service ::: deleteStat ::: response ::::> Deleted");
     }
 
 }
