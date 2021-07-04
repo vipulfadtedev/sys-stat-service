@@ -12,6 +12,6 @@ spec:
     namespace: sys-stat
     name: sys-stat-service-nfs-pvc
   nfs:
-    path: /export/space
+    path: /export/space/logs
     server: 10.0.0.4
     readOnly: false
